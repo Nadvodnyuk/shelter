@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: com.example.TheNews.controller.LikeControllerTests
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.714 s <<< FAILURE! - in com.example.TheNews.controller.LikeControllerTests
+LikeController_deleteLike_ReturnString  Time elapsed: 0.006 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<404>
+	at com.example.TheNews.controller.LikeControllerTests.LikeController_deleteLike_ReturnString(LikeControllerTests.java:73)
+
+LikeController_putLike_ReturnsOk  Time elapsed: 0.005 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<404>
+	at com.example.TheNews.controller.LikeControllerTests.LikeController_putLike_ReturnsOk(LikeControllerTests.java:63)
+

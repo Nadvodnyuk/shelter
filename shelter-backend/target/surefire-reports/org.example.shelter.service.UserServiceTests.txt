@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: org.example.shelter.service.UserServiceTests
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.018 s <<< FAILURE! - in org.example.shelter.service.UserServiceTests
+UserService_allUsers_ReturnsList  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot read the array length because "a" is null
+	at org.example.shelter.service.UserServiceTests.UserService_allUsers_ReturnsList(UserServiceTests.java:79)
+

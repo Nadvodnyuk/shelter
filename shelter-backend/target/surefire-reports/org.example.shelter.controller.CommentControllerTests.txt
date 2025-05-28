@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: org.example.shelter.controller.CommentControllerTests
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.658 s <<< FAILURE! - in org.example.shelter.controller.CommentControllerTests
+CommentController_postComment_ReturnsOk  Time elapsed: 0.014 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<404>
+	at org.example.shelter.controller.CommentControllerTests.CommentController_postComment_ReturnsOk(CommentControllerTests.java:76)
+

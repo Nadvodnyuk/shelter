@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: com.example.TheNews.service.UserServiceTests
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.023 s <<< FAILURE! - in com.example.TheNews.service.UserServiceTests
+UserService_allUsers_ReturnsList  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot read the array length because "a" is null
+	at com.example.TheNews.service.UserServiceTests.UserService_allUsers_ReturnsList(UserServiceTests.java:79)
+
