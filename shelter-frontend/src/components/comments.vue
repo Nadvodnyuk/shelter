@@ -69,7 +69,7 @@
           class="leave_comment"
           v-model="comment_text.comment_text"
           @input="validateComment"
-          placeholder="Оставить комментарий"
+          placeholder="Оставить заявку"
         >
         </textarea>
       </div>
@@ -270,7 +270,7 @@ export default {
   display: flex;
   width: 100%;
   height: 100px;
-  border-radius: 6px;
+  border-radius: 10px;
   caret-color: rgba(160, 160, 160, 0.3);
   background-color: white;
   border-width: 1px;
@@ -287,6 +287,7 @@ export default {
 .put_comm_btn {
   background-color: white;
   border: 1px solid black;
+  font-size: 16px;
 }
 
 .comment_bar {
