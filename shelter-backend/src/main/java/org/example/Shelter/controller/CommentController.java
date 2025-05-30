@@ -42,6 +42,15 @@ public class CommentController {
         }
     }
 
+    @GetMapping("/user/comments/showCommentsUser/{user_id}")
+    public ResponseEntity<?> getCommentsForUser(@PathVariable long user_id) {
+        try {
+            return ResponseEntity.ok(commentFacade.getCommentsByUserId(user_id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
     //ок
     @PostMapping("/both/comments/postComment")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")

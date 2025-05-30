@@ -27,6 +27,11 @@ public class CommentServiceImpl implements CommentService {
         return commentRepo.findByAnimalCOrderByCommentDateDesc(animal_c, pageRequest);
     }
 
+    @Override
+    public List<CommentEntity> getCommentsByUserId(UserEntity user_c) {
+        return commentRepo.findByUserC(user_c);
+    }
+
     public int getCommentsByAnimalId(AnimalEntity animal_c) {
         List<CommentEntity> likeNum = commentRepo.findByAnimalC(animal_c);
         return likeNum.size();

@@ -15,11 +15,13 @@ public interface CommentFacade {
     List<CommentDto> getCommentsByAnimalIdWithPaginationFacade(long animal_c, int page)
             throws NotFoundException;
 
+    List<CommentDto> getCommentsByUserId(long user_c) throws NotFoundException;
+
+
     //Написать коммент
     void createCommentFacade(long user_c, CreateCommentDto comment, long animal_c)
             throws NotFoundException;
 
     //Удалить коммент
     void deleteFacade(long comment_id);
-
 }

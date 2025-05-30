@@ -60,6 +60,22 @@ public class CommentFacadeImpl implements CommentFacade {
         return threeComments;
     }
 
+    @Override
+    public List<CommentDto> getCommentsByUserId(long user_c) throws NotFoundException {
+        UserEntity userCom = userService.getOne(user_c);
+        List<CommentEntity> commentsEntity = commentService.getCommentsByUserId(userCom);
+
+        for (CommentEntity comment : commentsEntity) {
+            Hibernate.initialize(comment.getUserC());
+        }
+
+        List<CommentDto> commentsListByUser = commentsEntity.stream()
+                .map(comment -> modelMapper.map(comment, CommentDto.class))
+                .collect(Collectors.toList());
+        System.out.println(commentsListByUser);
+        return commentsListByUser;
+    }
+
     //Написать коммент к статье
     //С.Написать коммент
     public void createCommentFacade(long user_c, CreateCommentDto comment, long animal_c) throws NotFoundException {
