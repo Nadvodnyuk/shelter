@@ -1,6 +1,7 @@
 package org.example.Shelter.service;
 
 import org.example.Shelter.entity.AnimalEntity;
+import org.example.Shelter.entity.Gender;
 import org.example.Shelter.entity.Theme;
 import org.example.Shelter.exception.NotFoundException;
 import org.springframework.security.core.Authentication;
@@ -14,11 +15,11 @@ public interface AnimalService {
 
     List<AnimalEntity> getAllLatestAnimals();
 
-    void createAnimal(String title, String text, String imageUrl, Set<Theme> topics);
+    void createAnimal(String title, String text, String imageUrl, Set<Theme> topics, Gender gender, String breed, Integer age);
 
     AnimalEntity getOne(Long art_id) throws NotFoundException;
 
-    void editAnimal(long animal_id, String title, String text, String imageUrl, Set<Theme> topics);
+    void editAnimal(long animal_id, String title, String text, String imageUrl, Set<Theme> topics, Gender gender, String breed, Integer age);
 
     void delete(Long art_id);
 

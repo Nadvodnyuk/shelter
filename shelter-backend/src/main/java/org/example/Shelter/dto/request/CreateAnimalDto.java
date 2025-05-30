@@ -2,6 +2,7 @@ package org.example.Shelter.dto.request;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import java.util.List;
 
 @Data
@@ -13,4 +14,7 @@ public class CreateAnimalDto {
     private String animal_text;
     private String image_url;
     private List<String> topics;
+    private String gender;
+    private String breed;
+    private Integer age;
 }

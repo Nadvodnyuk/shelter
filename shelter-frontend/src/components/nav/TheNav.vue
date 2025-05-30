@@ -1,16 +1,25 @@
 <template>
-  <ul class="nav_bar">
-    <li class="nb_li">
-      <router-link v-if="!token" :to="{ name: 'loginPage' }" class="nb_link">
-        Войти
-      </router-link>
-    </li>
-    <li class="nb_li">
-      <button v-if="token" class="nb_li" @click="logoutFoo" type="button">
-        Выйти
-      </button>
-    </li>
-  </ul>
+  <div>
+    <ul class="nav_bar">
+      <li class="nb_li">
+        <router-link v-if="token" :to="{ name: 'applicationsPage' }" class="nb_new">
+          Отправленные заявки
+        </router-link>
+      </li>
+    </ul>
+    <ul class="nav_bar">
+      <li class="nb_li">
+        <router-link v-if="!token" :to="{ name: 'loginPage' }" class="nb_link">
+          Войти
+        </router-link>
+      </li>
+      <li class="nb_li">
+        <button v-if="token" class="nb_li" @click="logoutFoo" type="button">
+          Выйти
+        </button>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -48,6 +57,7 @@ export default {
         this.setRole("");
         sessionStorage.clear();
         await this.getAll();
+        await this.$router.push("/");
         window.location.reload();
       } catch (e) {
         this.error = "Не прошло!";
@@ -80,8 +90,17 @@ export default {
 </script>
 
 <style scoped lang="css">
+div {
+  display: flex;
+  align-items: center;
+}
 .nav_bar {
   list-style: none;
+}
+
+.nb_new {
+  color: #000000;
+  margin-left: 20px;
 }
 
 .nb_link {

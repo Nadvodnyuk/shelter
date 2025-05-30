@@ -247,6 +247,7 @@ export default {
 <style>
 .createAnimalBtn {
   background-color: white;
+  border-radius: 10px;
 }
 
 .createArtTitle {

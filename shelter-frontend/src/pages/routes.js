@@ -2,6 +2,7 @@ import { createRouter } from "vue-router";
 import Homepage from "./home/Home.vue";
 import Reg from "./reg/Reg.vue";
 import Login from "./login/Login.vue";
+import Application from "./application/application.vue";
 
 const routes = [
   {
@@ -20,6 +21,12 @@ const routes = [
     path: "/login/",
     name: "loginPage",
     component: Login,
+  },
+
+    {
+    path: "/applications/",
+    name: "applicationsPage",
+    component: Application,
   },
 ];
 

@@ -179,6 +179,7 @@ export default {
 <style scoped>
 .topicFilterBtn {
   background-color: white;
+  border-radius: 10px;
 }
 
 .topicsForm {
@@ -186,7 +187,7 @@ export default {
   max-width: 600px;
   margin: 0 auto;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 20px;
 }
 

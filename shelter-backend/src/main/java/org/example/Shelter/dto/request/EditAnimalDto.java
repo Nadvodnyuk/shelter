@@ -15,4 +15,7 @@ public class EditAnimalDto {
     private String animal_text;
     private String image_url;
     private List<String> topics;
+    private String gender;
+    private String breed;
+    private Integer age;
 }

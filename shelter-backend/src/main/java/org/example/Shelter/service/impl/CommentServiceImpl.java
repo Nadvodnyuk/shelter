@@ -18,13 +18,13 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepo commentRepo;
 
     //Для вывода комментов
-    public List<CommentEntity> getCommentsByAnimalIdWithPagination(AnimalEntity animal_с, int page) {
+    public List<CommentEntity> getCommentsByAnimalIdWithPagination(AnimalEntity animal_c, int page) {
         // Вычисляем номер страницы и количество элементов на странице
         int pageNumber = page - 1; // Страницы начинаются с 0
         PageRequest pageRequest = PageRequest.of(pageNumber, 3);
 
         // Загружаем комментарии из базы данных с учетом пагинации
-        return commentRepo.findByAnimalCOrderByCommentDateDesc(animal_с, pageRequest);
+        return commentRepo.findByAnimalCOrderByCommentDateDesc(animal_c, pageRequest);
     }
 
     public int getCommentsByAnimalId(AnimalEntity animal_c) {
@@ -33,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     //Для создания коммента
-    public void createComment(UserEntity user_c, String comment_phone, String comment_text, AnimalEntity animal_с) {
+    public void createComment(UserEntity user_c, String comment_phone, String comment_text, AnimalEntity animal_c) {
         // Создаем коммент
         CommentEntity comment = new CommentEntity();
 
@@ -41,7 +41,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setUserC(user_c);
         comment.setComment_text(comment_text);
         comment.setComment_phone(comment_phone);
-        comment.setAnimalC(animal_с);
+        comment.setAnimalC(animal_c);
         java.sql.Timestamp currentDateTime = java.sql.Timestamp.valueOf(LocalDateTime.now());
         comment.setCommentDate(currentDateTime);
 

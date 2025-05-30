@@ -62,8 +62,8 @@ public class CommentFacadeImpl implements CommentFacade {
 
     //Написать коммент к статье
     //С.Написать коммент
-    public void createCommentFacade(long user_c, CreateCommentDto comment, long animal_с) throws NotFoundException {
-        AnimalEntity art = animalService.getOne(animal_с);
+    public void createCommentFacade(long user_c, CreateCommentDto comment, long animal_c) throws NotFoundException {
+        AnimalEntity art = animalService.getOne(animal_c);
         UserEntity user = userService.getOne(user_c);
         commentService.createComment(user, comment.getComment_phone(), comment.getComment_text(), art);
     }

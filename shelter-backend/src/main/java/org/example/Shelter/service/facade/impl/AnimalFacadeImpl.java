@@ -1,6 +1,7 @@
 package org.example.Shelter.service.facade.impl;
 
 import org.example.Shelter.entity.AnimalEntity;
+import org.example.Shelter.entity.Gender;
 import org.example.Shelter.entity.Theme;
 import org.example.Shelter.exception.NotFoundException;
 import org.example.Shelter.service.AnimalService;
@@ -42,10 +43,14 @@ public class AnimalFacadeImpl implements AnimalFacade {
         Set<Theme> themes = createAnimalDto.getTopics().stream()
                 .map(Theme::valueOf)
                 .collect(Collectors.toSet());
+        Gender gender = Gender.valueOf(createAnimalDto.getGender());
         animalService.createAnimal(createAnimalDto.getTitle(),
                 createAnimalDto.getAnimal_text(),
                 createAnimalDto.getImage_url(),
-                themes);
+                themes,
+                gender,
+                createAnimalDto.getBreed(),
+                createAnimalDto.getAge());
     }
 
     //Для получения одной статьи:
@@ -62,10 +67,15 @@ public class AnimalFacadeImpl implements AnimalFacade {
                 .map(Theme::valueOf)
                 .collect(Collectors.toSet());
         System.out.println("themes"+themes);
+        Gender gender = Gender.valueOf(editAnimalDto.getGender());
         animalService.editAnimal(editAnimalDto.getAnimal_id(),
                 editAnimalDto.getTitle(),
                 editAnimalDto.getAnimal_text(),
-                editAnimalDto.getImage_url(),themes);
+                editAnimalDto.getImage_url(),
+                themes,
+                gender,
+                editAnimalDto.getBreed(),
+                editAnimalDto.getAge());
     }
 
     //Удаление статьи:
@@ -76,8 +86,7 @@ public class AnimalFacadeImpl implements AnimalFacade {
 
     public List<AnimalDto> getAnimalsByUserPreferencesFacade(Authentication authentication) {
         List<AnimalEntity> animals = animalService.getFilteredAnimalsByUserPreferences(authentication);
-        Type listType = new TypeToken<List<AnimalDto>>() {
-        }.getType();
+        Type listType = new TypeToken<List<AnimalDto>>() {}.getType();
         List<AnimalDto> AnimalsDto = new ModelMapper().map(animals, listType);
         return AnimalsDto;
     }

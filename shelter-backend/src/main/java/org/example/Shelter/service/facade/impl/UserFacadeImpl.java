@@ -59,10 +59,7 @@ public class UserFacadeImpl implements UserFacade {
 
     public boolean authenticatedUserFacade() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getPrincipal()=="anonymousUser") {
-            return false;}
-        else
-            return true;
+        return authentication.getPrincipal() != "anonymousUser";
     }
 
     //С.Выйти

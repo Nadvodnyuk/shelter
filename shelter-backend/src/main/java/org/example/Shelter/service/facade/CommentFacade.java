@@ -16,7 +16,7 @@ public interface CommentFacade {
             throws NotFoundException;
 
     //Написать коммент
-    void createCommentFacade(long user_c, CreateCommentDto comment, long animal_с)
+    void createCommentFacade(long user_c, CreateCommentDto comment, long animal_c)
             throws NotFoundException;
 
     //Удалить коммент

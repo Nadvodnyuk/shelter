@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.example.Shelter.entity.Gender;
 import org.example.Shelter.entity.Theme;
 import org.example.Shelter.entity.UserEntity;
 import org.example.Shelter.repository.UserRepo;
@@ -28,15 +29,14 @@ public class AnimalServiceImpl implements AnimalService {
 
     //Для списка статей:
     public List<AnimalEntity> getAllLatestAnimals() {
-        LocalDateTime twentyFourHoursAgo = LocalDateTime.now().minusHours(24);
+        LocalDateTime twentyFourHoursAgo = LocalDateTime.now().minusWeeks(1);
         java.sql.Timestamp timestamp = java.sql.Timestamp.valueOf(twentyFourHoursAgo);
-        List<AnimalEntity> animalsLast24Hours = animalRepo.findByPublicationDateAfter(timestamp);
-        return animalsLast24Hours;
+        return animalRepo.findByPublicationDateAfter(timestamp);
     }
 
     //Для создания статьи:
 
-    public void createAnimal(String title, String text, String imageUrl, Set<Theme> topics) {
+    public void createAnimal(String title, String text, String imageUrl, Set<Theme> topics, Gender gender, String breed, Integer age) {
         AnimalEntity animal = new AnimalEntity();
 
         animal.setTitle(title);
@@ -45,21 +45,21 @@ public class AnimalServiceImpl implements AnimalService {
         java.sql.Timestamp currentDateTime = java.sql.Timestamp.valueOf(LocalDateTime.now());
         animal.setPublicationDate(currentDateTime);
         animal.setTopics(topics);
+        animal.setGender(gender);
+        animal.setBreed(breed);
+        animal.setAge(age);
 
         animalRepo.save(animal);
     }
 
     //Для получения одной статьи:
     public AnimalEntity getOne(Long art_id) throws NotFoundException {
-        AnimalEntity art = animalRepo.findById(art_id).get();
-        if (art == null) {
-            throw new NotFoundException("Пользователь не найден");
-        }
-        return art;
+        return animalRepo.findById(art_id)
+                .orElseThrow(() -> new NotFoundException("Животное с id " + art_id + " не найдено"));
     }
 
     //Для изменения статьи
-    public void editAnimal(long animal_id, String title, String text, String imageUrl, Set<Theme> topics) {
+    public void editAnimal(long animal_id, String title, String text, String imageUrl, Set<Theme> topics, Gender gender, String breed, Integer age) {
         AnimalEntity animal = animalRepo.findById(animal_id).get();
 
         animal.setTitle(title);
@@ -68,6 +68,9 @@ public class AnimalServiceImpl implements AnimalService {
         java.sql.Timestamp currentDateTime = java.sql.Timestamp.valueOf(LocalDateTime.now());
         animal.setPublicationDate(currentDateTime);
         animal.setTopics(topics);
+        animal.setGender(gender);
+        animal.setBreed(breed);
+        animal.setAge(age);
 
         animalRepo.save(animal);
     }

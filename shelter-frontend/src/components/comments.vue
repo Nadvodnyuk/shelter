@@ -2,11 +2,18 @@
   <br />
   <div class="comments" v-show="commentFlags[animalId]">
     <div
-      v-if="role === 'ROLE_ADMIN' && commentAll[animalId] && commentAll[animalId].length"
+      v-if="
+        role === 'ROLE_ADMIN' &&
+        commentAll[animalId] &&
+        commentAll[animalId].length
+      "
       class="title_comment"
     >
       <br />
       <div v-for="(comment, index) in commentAll[animalId]" :key="index">
+        <div class="comment_trash">
+          {{ comment.comment_phone }}
+        </div>
         <div class="comment_trash">
           {{ comment.comment_text }}
         </div>
@@ -39,8 +46,13 @@
       </div>
     </div>
     <div v-else>
-      <p>
-        Чтобы оставить заявку, <router-link to="/login/">Войдите</router-link> или <router-link to="/reg/">Зарегистрируйтесь</router-link>!
+      <p v-if="!role">
+        Чтобы оставить заявку,
+        <router-link to="/login/">Войдите</router-link> или
+        <router-link to="/reg/">Зарегистрируйтесь</router-link>!
+      </p>
+      <p v-else-if="role !== 'ROLE_ADMIN'">
+        Если хотите забрать животное, оставьте заявку здесь!
       </p>
     </div>
     <div class="comment_more">
@@ -50,8 +62,7 @@
             class="nostyle"
             @click="fetchMoreComments()"
             v-if="
-              this.commentPages[this.animalId] <
-              commentNums[this.animalId] / 3
+              this.commentPages[this.animalId] < commentNums[this.animalId] / 3
             "
           >
             Ещё комментарии
@@ -59,7 +70,20 @@
         </li>
       </ul>
     </div>
-    <div>
+    <div v-if="role === 'ROLE_USER'">
+      <div class="comment_bar">
+        <textarea
+          type="input"
+          cols="60"
+          rows="14"
+          wrap="soft"
+          class="leave_comment"
+          v-model="comment_text.comment_phone"
+          @input="validatePhone"
+          placeholder="Ваш номер телефона"
+        >
+        </textarea>
+      </div>
       <div class="comment_bar">
         <textarea
           type="input"
@@ -69,7 +93,7 @@
           class="leave_comment"
           v-model="comment_text.comment_text"
           @input="validateComment"
-          placeholder="Оставить заявку"
+          placeholder="Комментарий к заявке"
         >
         </textarea>
       </div>
@@ -103,8 +127,10 @@ export default {
       sentFlag: false,
       errors: {
         comment: "",
+        phone: "",
       },
       comment_text: {
+        comment_phone: "",
         comment_text: "",
       },
       pages: {},
@@ -139,11 +165,28 @@ export default {
       "setCommentNums",
     ]),
 
+    validatePhone() {
+      const phone = this.comment_text.comment_phone.trim();
+      const phoneRegex = /^[\d+\-\s()]{5,20}$/;
+
+      if (!phone) {
+        this.errors.phone = "Телефон обязателен";
+      } else if (!phoneRegex.test(phone)) {
+        this.errors.phone = "Неверный формат телефона";
+      } else {
+        this.errors.phone = "";
+      }
+    },
+
     validateComment() {
-      this.errors.comment =
-        this.comment_text.comment_text.length <= 1000
-          ? ""
-          : "Comment has more than 1000 characters.";
+      const comment = this.comment_text.comment_text.trim();
+      if (!comment) {
+        this.errors.comment = "Комментарий не может быть пустым";
+      } else if (comment.length > 1000) {
+        this.errors.comment = "Более 1000 символов в комментарии.";
+      } else {
+        this.errors.comment = "";
+      }
     },
 
     async fetchComments() {
@@ -195,35 +238,31 @@ export default {
     },
 
     async submitComment() {
-      console.log("Submit comment...");
       this.validateComment();
-      if (!this.errors.comment) {
-        console.log("Form submitted:", {
-          comment: this.comment_text.comment_text,
-        });
+      this.validatePhone();
+
+      if (!this.errors.comment && !this.errors.phone) {
         try {
           await HomeDataService.createComment(
             this.id,
             this.animalId,
             this.comment_text
-          ).then((response) => {
-            console.log("createComment", response.data);
-            this.setCommentPages({
-              ...this.commentPages,
-              [this.animalId]: 1,
-            });
-            this.setCommentAll({
-              ...this.commentAll,
-              [this.animalId]: [],
-            });
-            this.fetchComments();
-            this.getCommentNum();
-            this.sentFlag = true;
-            this.comment_text.comment_text = "";
+          );
+          this.setCommentPages({
+            ...this.commentPages,
+            [this.animalId]: 1,
           });
+          this.setCommentAll({
+            ...this.commentAll,
+            [this.animalId]: [],
+          });
+          this.fetchComments();
+          this.getCommentNum();
+          this.sentFlag = true;
+          this.comment_text.comment_text = "";
+          this.comment_text.comment_phone = "";
         } catch (e) {
-          console.log("e", e);
-          this.e = "!";
+          console.error(e);
         }
       }
     },
@@ -268,8 +307,8 @@ export default {
   align-items: center;
   justify-content: center;
   display: flex;
-  width: 100%;
-  height: 100px;
+  width: 70%;
+  height: 50px;
   border-radius: 10px;
   caret-color: rgba(160, 160, 160, 0.3);
   background-color: white;
@@ -287,11 +326,11 @@ export default {
 .put_comm_btn {
   background-color: white;
   border: 1px solid black;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .comment_bar {
-  padding: 2em;
+  padding: 0 2em 0 2em;
   white-space: normal;
 }
 

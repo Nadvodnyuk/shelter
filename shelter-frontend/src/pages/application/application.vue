@@ -1,21 +1,21 @@
 <script setup>
 import updateAnimal from "../../components/updateAnimal.vue";
-import createAnimal from "../../components/createAnimal.vue";
-import topicFilter from "../../components/topicFilter.vue";
 import comments from "../../components/comments.vue";
 </script>
 
 <template>
   <div class="sub_header"></div>
   <div class="news_page">
-    <createAnimal v-if="role === 'ROLE_ADMIN'" class="createAnimalBtn" />
-    <topicFilter v-if="role === 'ROLE_USER'" class="topicFilterBtn" />
-
-    <article class="post" v-for="animal in animalAll" :key="animal.animal_id">
+    <article
+      class="post"
+      v-for="animal in animalsWithComments"
+      :key="animal.animal_id"
+    >
       <header>
         <div class="title">
           <h2>
-            {{ animal.title }}, {{ getAgeText(animal.age) }}, {{ animal.breed }},
+            {{ animal.title }}, {{ getAgeText(animal.age) }},
+            {{ animal.breed }},
             {{ getGenderText(animal.gender) }}
           </h2>
           <p>
@@ -136,7 +136,7 @@ import { mapState, mapActions } from "pinia";
 import HomeDataService from "../../services/HomeDataService";
 
 export default {
-  name: "App",
+  name: "applicationsPage",
   data() {
     return {
       size: 30,
@@ -175,6 +175,13 @@ export default {
       "commentPages",
       "animalId",
     ]),
+
+    animalsWithComments() {
+      return this.animalAll.filter(
+        (animal) => this.commentNums[animal.animal_id] > 0
+      );
+    },
+
     async get() {
       try {
         await this.getAllThemes();
@@ -438,4 +445,4 @@ export default {
 };
 </script>
 
-<style scoped src="./home.css"></style>
+<style scoped src="./application.css"></style>

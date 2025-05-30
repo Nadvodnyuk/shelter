@@ -20,12 +20,7 @@ public class AnimalDto {
     private Integer comment_num;
     private java.sql.Timestamp publicationDate;
     private List<String> topics;
-
-    public Timestamp getPublicationDate() {
-        return publicationDate;
-    }
-
-    public void setPublicationDate(Timestamp publicationDate) {
-        this.publicationDate = publicationDate;
-    }
+    private String gender;
+    private String breed;
+    private Integer age;
 }

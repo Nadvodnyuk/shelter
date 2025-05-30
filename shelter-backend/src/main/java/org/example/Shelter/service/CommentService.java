@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface CommentService {
-    List<CommentEntity> getCommentsByAnimalIdWithPagination(AnimalEntity animal_с, int page);
+    List<CommentEntity> getCommentsByAnimalIdWithPagination(AnimalEntity animal_c, int page);
 
     int getCommentsByAnimalId(AnimalEntity animal_c);
     void createComment(UserEntity user_c, String comment_phone, String comment_text, AnimalEntity animal_c);

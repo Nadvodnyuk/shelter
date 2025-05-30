@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "./pages/routes.js";
 
 const instance = axios.create({
   baseURL: "http://localhost:8080/",
@@ -18,6 +19,23 @@ instance.interceptors.request.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  }
+);
+
+instance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (
+      error.response &&
+      (error.response.status === 401 || error.response.status === 403)
+    ) {
+      sessionStorage.clear();
+      localStorage.clear();
+
+      router.push("/");
+      window.location.reload();
+    }
     return Promise.reject(error);
   }
 );

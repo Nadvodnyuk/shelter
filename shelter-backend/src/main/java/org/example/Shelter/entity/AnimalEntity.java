@@ -27,6 +27,10 @@ public class AnimalEntity {
     @Column(name = "topic")
     private Set<Theme> topics;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private Gender gender;
+
     @Column(name = "animal_text", columnDefinition = "TEXT")
     private String animal_text;
 
@@ -46,6 +50,12 @@ public class AnimalEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "animalC")
     @JsonIgnore
     private List<CommentEntity> comments;
+
+    @Column(name = "breed")
+    private String breed;
+
+    @Column(name = "age")
+    private Integer age;
 
     @Override
     public String toString() {
