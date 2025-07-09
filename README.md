@@ -19,6 +19,8 @@
   - Ant Design Vue
   - Axios
 
+Управление зависимостями: Maven (backend), npm (frontend)
+
 ## Требования к окружению
 
 - Java 8 или выше  
