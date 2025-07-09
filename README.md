@@ -4,15 +4,20 @@
 
 ## Стек
 
-**Backend**  
-  - Java 8  
+**Backend**
+  - Java 8
   - Spring Boot
-  - JWT для аутентификации  
-  - Hibernate + JPA  
-  - PostgreSQL  
+  - Spring Security (JWT для аутентификации)
+  - Hibernate + JPA
+  - PostgreSQL
 
-**Frontend**  
-  - Vue.js  
+**Frontend**
+  - Vue.js
+  - Vite
+  - Vue Router
+  - Pinia
+  - Ant Design Vue
+  - Axios
 
 ## Требования к окружению
 
